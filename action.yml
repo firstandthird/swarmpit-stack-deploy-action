@@ -1,11 +1,19 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Swarmpit Stack Deploy'
+description: 'Deploys a stack from a passed docker compose file'
+author: 'First & Third'
 inputs:
-  milliseconds: # change this
+  url:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'URL of your swarmpit instance'
+  api-key:
+    required: true
+    description: 'Swarmpit api key, you can get this from the swarmpit admin'
+  stack:
+    required: true
+    description: 'Name of the stack you want deployed, can be new or existing. If existing, stack will be updated'
+  compose:
+    required: true
+    description: 'Path to a docker compose file to load'
 runs:
-  using: 'node16'
+  using: 'node18'
   main: 'dist/index.js'
