@@ -1,6 +1,8 @@
 name: 'Swarmpit Stack Deploy'
 description: 'Deploys a stack from a passed docker compose file'
 author: 'First & Third'
+icon: arrow-up-circle
+color: purple
 inputs:
   url:
     required: true
