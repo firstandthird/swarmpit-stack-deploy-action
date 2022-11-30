@@ -14,21 +14,18 @@ async function run(): Promise<void> {
       Authorization: `Bearer ${API_KEY}`
     }
 
-    const servicesResponse = await fetch(
-      `${URL}/api/stacks/${STACK}/services`,
+    // If the stack exists this will 200, otherwise will 400
+    const stackExistsResponse = await fetch(
+      `${URL}/api/stacks/${STACK}/compose`,
       {
         headers
       }
     )
-    const services = (await servicesResponse.json()) as {
-      id: string
-      serviceName: string
-    }[]
 
     // Create stack if it doesn't exist or update if it does
     let endpoint = `${URL}/api/stacks`
 
-    if (!services.length) {
+    if (stackExistsResponse.ok) {
       endpoint += `/${STACK}`
     }
 
