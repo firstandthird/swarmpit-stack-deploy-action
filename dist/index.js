@@ -69,14 +69,13 @@ function run() {
                     compose: composeContents
                 }
             };
-            core.info(JSON.stringify(body));
             const deployResponse = yield (0, node_fetch_1.default)(endpoint, {
                 method: 'post',
                 headers: Object.assign(Object.assign({}, headers), { 'Content-Type': 'application/json' }),
                 body: JSON.stringify(body)
             });
-            const deployJSON = yield deployResponse.json();
             if (!deployResponse.ok) {
+                const deployJSON = yield deployResponse.json();
                 return core.setFailed(`Redeploy failed with status ${deployResponse.status} and message: ${JSON.stringify(deployJSON)}`);
             }
             core.info('Redeploy succeeded');
