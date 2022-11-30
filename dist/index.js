@@ -52,13 +52,13 @@ function run() {
             const headers = {
                 Authorization: `Bearer ${API_KEY}`
             };
-            const servicesResponse = yield (0, node_fetch_1.default)(`${URL}/api/stacks/${STACK}/services`, {
+            // If the stack exists this will 200, otherwise will 400
+            const stackExistsResponse = yield (0, node_fetch_1.default)(`${URL}/api/stacks/${STACK}/compose`, {
                 headers
             });
-            const services = (yield servicesResponse.json());
             // Create stack if it doesn't exist or update if it does
             let endpoint = `${URL}/api/stacks`;
-            if (!services.length) {
+            if (stackExistsResponse.ok) {
                 endpoint += `/${STACK}`;
             }
             const readFile = util_1.default.promisify(fs_1.default.readFile);
