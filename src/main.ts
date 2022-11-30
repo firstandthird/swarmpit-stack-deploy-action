@@ -39,8 +39,6 @@ async function run(): Promise<void> {
       }
     }
 
-    core.info(JSON.stringify(body))
-
     const deployResponse = await fetch(endpoint, {
       method: 'post',
       headers: {
@@ -50,9 +48,8 @@ async function run(): Promise<void> {
       body: JSON.stringify(body)
     })
 
-    const deployJSON = await deployResponse.json()
-
     if (!deployResponse.ok) {
+      const deployJSON = await deployResponse.json()
       return core.setFailed(
         `Redeploy failed with status ${
           deployResponse.status
@@ -61,7 +58,6 @@ async function run(): Promise<void> {
     }
 
     core.info('Redeploy succeeded')
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     core.setFailed(error?.message || 'Unknown error')
