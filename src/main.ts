@@ -42,6 +42,8 @@ async function run(): Promise<void> {
       }
     }
 
+    core.info(JSON.stringify(body))
+
     const deployResponse = await fetch(endpoint, {
       method: 'post',
       headers: {
@@ -55,7 +57,9 @@ async function run(): Promise<void> {
 
     if (!deployResponse.ok) {
       return core.setFailed(
-        `Redeploy failed with status ${deployResponse.status} and message: ${deployJSON}`
+        `Redeploy failed with status ${
+          deployResponse.status
+        } and message: ${JSON.stringify(deployJSON)}`
       )
     }
 
